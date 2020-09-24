@@ -72,8 +72,8 @@ public class Astar {
 
     //A*(A-star)探索アルゴリズム
     int astaralgo(int n, int m, String[] maze) {
-        int[][] grid = new int[n][m];    //移動コスト(距離)の記録
-        int sx, sy, gx, gy;              //スタートとゴール位置
+        int[][] grid = new int[n][m];    //Store the data of the cost of moving(length)
+        int sx, sy, gx, gy;              //Start/Goal position store
         sx = sy = gx = gy = 0;
 
         //迷路データのパース
@@ -99,7 +99,7 @@ public class Astar {
         Queue<Position> q = new PriorityQueue<Position>();
 
         Position p = new Position(sx, sy);
-        p.estimate = getManhattanDistance(sx, sy, gx, gy);    //推定値
+        p.estimate = getManhattanDistance(sx, sy, gx, gy);    //estimated cost as manhattan
         q.add(p);
 
         while (!q.isEmpty()) {
@@ -107,8 +107,8 @@ public class Astar {
             if (p.cost > grid[p.y][p.x]) {
                 continue;
             }
-            if (p.y == gy && p.x == gx) {    //ゴールに到達
-                path = p.path;        //移動経路(戻値用)
+            if (p.y == gy && p.x == gx) {    //if reach to the goal
+                path = p.path;        //Way road(戻値用)
                 break;
             }
 
@@ -122,8 +122,8 @@ public class Astar {
                     grid[ny][nx] = grid[p.y][p.x] + 1;
                     
                     Position p2 = new Position(nx, ny);
-                    p2.cost = grid[ny][nx];        //移動コスト(スタートからの移動量)
-                    p2.estimate = getManhattanDistance(nx, ny, gx, gy) + p2.cost;    //推定値
+                    p2.cost = grid[ny][nx];        //Moving cost(how long did you come to the place which you are in)
+                    p2.estimate = getManhattanDistance(nx, ny, gx, gy) + p2.cost;    //estimated cost as manhattan
                     p2.path = p.path + dir[i];     //移動経路(移動方向の記録)
                     q.add(p2);
                 }
@@ -135,11 +135,11 @@ public class Astar {
 
     //位置情報の構造体
     class Position implements Comparable<Position>{
-        int x;               //座標
-        int y;
-        int cost;            //移動コスト(スタートからの移動量)
-        int estimate;        //推定値(ゴールまでのマンハッタン距離＋移動コスト)
-        String path = "";    //移動経路(移動方向の記録)
+        int x;               //latitude
+        int y;              //longitude
+        int cost;            //Estimated cost from starting point
+        int estimate;        //Estimated value(Manhattan+Moving cost)
+        String path = "";    //Way(移動方向の記録)
 
         //コンストラクタ
         public Position(int x, int y) {
