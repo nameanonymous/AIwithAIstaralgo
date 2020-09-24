@@ -10,6 +10,27 @@ import java.util.Scanner;
  */
 public class Astar {
 
+    //位置情報の構造体
+    class Position implements Comparable<Position>{
+        int x;               //latitude
+        int y;              //longitude
+        int cost;            //Estimated cost from starting point
+        int estimate;        //Estimated value(Manhattan+Moving cost)
+        String path = "";    //Way(移動方向の記録)
+
+        //コンストラクタ
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        //比較関数
+        @Override
+        public int compareTo(Position o) {
+            return this.estimate - o.estimate;    //推定値で小さい順
+        }
+    }
+    
     public static void main(String[] args) throws Exception {
     Scanner scan = new Scanner(System.in);
 
@@ -133,26 +154,6 @@ public class Astar {
         return grid[gy][gx];    //見つからないときは INF 値になる
     }
 
-    //位置情報の構造体
-    class Position implements Comparable<Position>{
-        int x;               //latitude
-        int y;              //longitude
-        int cost;            //Estimated cost from starting point
-        int estimate;        //Estimated value(Manhattan+Moving cost)
-        String path = "";    //Way(移動方向の記録)
-
-        //コンストラクタ
-        public Position(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        //比較関数
-        @Override
-        public int compareTo(Position o) {
-            return this.estimate - o.estimate;    //推定値で小さい順
-        }
-    }
 }
     
 
