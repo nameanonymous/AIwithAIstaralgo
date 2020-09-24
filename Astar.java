@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Astar {
 
-    //位置情報の構造体
+    //Structure
     class Position implements Comparable<Position>{
         int x;               //latitude
         int y;              //longitude
