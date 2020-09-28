@@ -11,12 +11,7 @@ import java.util.Scanner;
 public class Astar {
 
     //Structure
-    class City{
-        String name;
-        int Traincost;
-        int Buscost;
-        
-        }
+
     class Position implements Comparable<Position>{
         int x;               //latitude
         int y;              //longitude
